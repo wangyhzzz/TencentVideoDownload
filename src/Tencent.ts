@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import {readFileSync} from "fs";
 
-interface Episode {
+export interface Episode {
     name: string,
     url: string
 }
@@ -17,7 +17,7 @@ export class Tencent {
     }
 
     private appVer = '3.6.3';
-    private guid = 'd2f657c14374c957cf22d85fff30f6df';
+    private guid = 'd2f657c14374c957cf22d85fff31f6df';
     private wasmUrl = "assets/tx-ckey.wasm"
 
     private static _instance: Tencent;
@@ -116,8 +116,7 @@ export class Tencent {
         var _args = ['10201', this.c2string(this.appVer), this.c2string(vid), this.c2string(''), this.c2string(this.guid), t];
         // @ts-ignore
         var addr = this.wasmobject.exports._getckey.apply(null, _args);
-        var str = Tencent.getString(this.Ga, addr)
-        return str;
+        return Tencent.getString(this.Ga, addr);
     }
 
     private async init() {
