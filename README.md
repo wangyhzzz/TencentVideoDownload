@@ -5,6 +5,10 @@
 
 `ts-node src/app.ts e0024f5mhf8`
 
+默认高清，标清添加参数0(目前仅支持标清与高清,两种格式)
+
+`ts-node src/app.ts e0024f5mhf8 0`
+
 想转成mp4的话，可以将m3u8列表地址传入ffmpeg(需要额外安装)，例如：
 
 `ffmpeg -i http://xxx.x.m3u8 -c copy -bsf:a aac_adtstoasc output.mp4`

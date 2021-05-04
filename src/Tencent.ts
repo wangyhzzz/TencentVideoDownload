@@ -94,12 +94,16 @@ export class Tencent {
         return addr;
     }
 
-    public async getUrl(vid: string, cb: (url: string) => any = a => a): Promise<Episode> {
+    public async getUrl(vid: string, hd: number = 1 ,cb: (url: string) => any = a => a): Promise<Episode> {
         if (!this.wasmobject) await this.init();
         var tm = Math.floor(Date.now() / 1000);
         var ckey = this.getCkey(vid, tm);
         var url = 'https://vd.l.qq.com/proxyhttp'
-        var data = `{"buid":"vinfoad","vinfoparam":"spsrt=1&charge=0&defaultfmt=auto&otype=ojson&guid=${this.guid}&flowid=0f072c413ab6cd5c9a20a2060874b409_10201&platform=10201&sdtfrom=v1010&defnpayver=1&appVer=3.6.3&host=v.qq.com&ehost=https%3A%2F%2Fv.qq.com%2Fx%2Fcover%2Fjvhuaf93hh858fs%2Fi0024rxw2f4.html&refer=v.qq.com&sphttps=1&tm=${tm}&spwm=4&logintoken=&unid=73ebacf7461411e99d19a0424b63310a&vid=${vid}&defn=&fhdswitch=0&show1080p=1&isHLS=1&dtype=3&sphls=2&spgzip=1&dlver=2&drm=32&hdcp=0&spau=1&spaudio=15&defsrc=1&encryptVer=9.1&cKey=${ckey}&fp2p=1"}`
+        var shd = 'shd';
+        if(hd == 0){
+            shd = 'sd' 
+        }
+        var data = `{"buid":"vinfoad","vinfoparam":"spsrt=1&charge=0&defaultfmt=auto&otype=ojson&guid=${this.guid}&flowid=0f072c413ab6cd5c9a20a2060874b409_10201&platform=10201&sdtfrom=v1010&defnpayver=1&appVer=3.6.3&host=v.qq.com&ehost=https%3A%2F%2Fv.qq.com%2Fx%2Fcover%2Fjvhuaf93hh858fs%2Fi0024rxw2f4.html&refer=v.qq.com&sphttps=1&tm=${tm}&spwm=4&logintoken=&unid=73ebacf7461411e99d19a0424b63310a&vid=${vid}&defn=${shd}&fhdswitch=0&show1080p=1&isHLS=1&dtype=3&sphls=2&spgzip=1&dlver=2&drm=32&hdcp=0&spau=1&spaudio=15&defsrc=1&encryptVer=9.1&cKey=${ckey}&fp2p=1"}`
         var playurl = await fetch(url, {
             method: "POST",
             body: data,
